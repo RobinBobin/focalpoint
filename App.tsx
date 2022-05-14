@@ -4,13 +4,6 @@ import { withAnchorPoint } from 'react-native-anchor-point'
 const height = 262.4
 const width = 393.6
 
-const focalPoint = {
-  x: width / 2,
-  y: height
-}
-
-const translateY = height / 2 - focalPoint.y
-
 export default function App() {
   let transform: TransformsStyle = {
     transform: [
