@@ -12,7 +12,7 @@ export default () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: '#e8e8e8',
     flex: 1
   },
   object: {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     width: 500
   },
   overlay: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(232, 232, 232, 0.8)',
     height: 700,
     start: 0,
     top: 0,
