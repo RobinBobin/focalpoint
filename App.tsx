@@ -1,4 +1,4 @@
-import Application from './src/maskinglayer'
+import Application from './src/gesturecanvas/app'
 
 export default function App() {
   return <Application />
