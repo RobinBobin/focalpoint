@@ -12,13 +12,8 @@ const App: React.VFC = () => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Picture
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <Canvas />
+        <Picture>
+          <Canvas style={styles.canvas} />
         </Picture>
         <TopBar />
         <BottomBar />
