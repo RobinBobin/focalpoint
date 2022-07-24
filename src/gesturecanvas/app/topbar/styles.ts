@@ -7,7 +7,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'darkblue',
     height: TOP_BAR_HEIGHT,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    position: 'absolute',
+    width: '100%'
   },
   header: {
     color: 'white',
