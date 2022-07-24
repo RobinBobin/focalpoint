@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { StyleProp, View, ViewStyle } from 'react-native'
+import { canvasStore } from '../../canvasstore'
 
 export interface ICanvasProps {
   style: StyleProp<ViewStyle>
@@ -7,19 +8,19 @@ export interface ICanvasProps {
 export const Canvas: React.FC<ICanvasProps> = ({ style }) => {
   const ref = useRef<View>(null)
 
-  useEffect(() => {
+  const onLayout = (): void => {
     ref.current?.measureInWindow((x: number, y: number, width: number, height: number) => {
-      console.log('Canvas', x, y, width, height)
+      canvasStore.setPositionInWindow({ x, y, width, height })
     })
-  }, [])
+  }
 
   return (
-    <View ref={ref} style={style}>
+    <View onLayout={onLayout} ref={ref} style={style}>
       <View style={{
         backgroundColor: 'black',
         height: 100,
         position: 'absolute',
-        start: 0,
+        start: -50,
         top: 0,
         width: 100
       }} />

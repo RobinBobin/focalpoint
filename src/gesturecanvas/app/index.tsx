@@ -5,8 +5,8 @@ import { BottomBar } from './bottombar'
 import { EndBar } from './endbar'
 import { StartBar } from './startbar'
 import { TopBar } from './topbar'
-import { Picture } from '../lib/picture'
-import { Canvas } from '../lib/picture/canvas'
+import { Picture } from '../lib/pictureelements/picture'
+import { Canvas } from '../lib/pictureelements/canvas'
 
 const App: React.VFC = () => {
   return (
