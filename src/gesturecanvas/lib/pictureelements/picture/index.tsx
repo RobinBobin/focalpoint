@@ -15,7 +15,7 @@ export interface IPictureProps {
 export const Picture: React.FC<IPictureProps> = observer(({ children, style }) => {
   const pan = Gesture.Pan()
     .maxPointers(1)
-    .onChange(event => {
+    .onUpdate(event => {
       console.log('Pan translationX', event.translationX)
     })
   
