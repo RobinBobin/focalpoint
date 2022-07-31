@@ -11,9 +11,5 @@ export default StyleSheet.create({
     //   { translateX: 100 },
     //   { translateY: 100 }
     // ]
-  },
-  staticContainer: {
-    // backgroundColor: 'brown',
-    flex: 1
   }
 })
