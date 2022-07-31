@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import styles from './styles'
-import { useMeasureInWindow } from '../hooks/useMeasureInWindow'
+import { useMeasureInWindow } from '../../hooks/useMeasureInWindow'
 
 export const PictureSpace: React.FC = ({ children }) => {
   const { onLayout, ref } = useMeasureInWindow('picturespace')

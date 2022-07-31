@@ -8,14 +8,13 @@ import styles from './styles'
 import { PictureSpace } from '../picturespace'
 
 export interface IPictureProps {
-  canvas: JSX.Element
   canvasOuterSpaceOverlayOpacity?: number
   style?: StyleProp<ViewStyle>
 }
 
-export const Picture: React.VFC<IPictureProps> = ({
-  canvas,
+export const Picture: React.FC<IPictureProps> = ({
   canvasOuterSpaceOverlayOpacity,
+  children,
   style
 }) => {
   const pan = Gesture.Pan()
@@ -31,7 +30,7 @@ export const Picture: React.VFC<IPictureProps> = ({
     <GestureHandlerRootView style={resultingStyle}>
       <GestureDetector gesture={pan}>
         <>
-          <PictureSpace>{canvas}</PictureSpace>
+          <PictureSpace>{children}</PictureSpace>
           <CanvasOuterSpaceOverlay backgroundColor={backgroundColor} opacity={canvasOuterSpaceOverlayOpacity} />
         </>
       </GestureDetector>

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ColorValue, View } from 'react-native'
-import { gestureCanvasStore } from '../../gesturecanvasstore'
+import { positions } from '../../mst/Positions'
 
 export interface ICanvasOuterSpaceOverlayProps {
   backgroundColor: ColorValue
@@ -10,17 +10,17 @@ export interface ICanvasOuterSpaceOverlayProps {
 
 export const CanvasOuterSpaceOverlay: React.VFC<ICanvasOuterSpaceOverlayProps> = observer(({ backgroundColor, opacity = 0.8 }) => {
   const {
-    canvasPositionInPictureSpace,
-    pictureSpacePositionInWindow
-  } = gestureCanvasStore
+    canvasRelativeToPictureSpace,
+    pictureSpaceRelativeToWindow
+  } = positions
 
-  const canvasEnd = canvasPositionInPictureSpace.x + canvasPositionInPictureSpace.width
+  const canvasEnd = canvasRelativeToPictureSpace.x + canvasRelativeToPictureSpace.width
 
   const bottom = {
     bottom: 0,
-    start: canvasPositionInPictureSpace.x,
-    top: canvasPositionInPictureSpace.y + canvasPositionInPictureSpace.height,
-    width: canvasPositionInPictureSpace.width
+    start: canvasRelativeToPictureSpace.x,
+    top: canvasRelativeToPictureSpace.y + canvasRelativeToPictureSpace.height,
+    width: canvasRelativeToPictureSpace.width
   }
 
   const commonStyle = {
@@ -31,23 +31,23 @@ export const CanvasOuterSpaceOverlay: React.VFC<ICanvasOuterSpaceOverlayProps> =
 
   const end = {
     end: 0,
-    height: pictureSpacePositionInWindow.height,
+    height: pictureSpaceRelativeToWindow.height,
     start: canvasEnd,
     top: 0,
   }
 
   const start = {
-    height: pictureSpacePositionInWindow.height,
+    height: pictureSpaceRelativeToWindow.height,
     start: 0,
     top: 0,
-    width: canvasPositionInPictureSpace.x
+    width: canvasRelativeToPictureSpace.x
   }
 
   const top = {
-    height: canvasPositionInPictureSpace.y,
-    start: canvasPositionInPictureSpace.x,
+    height: canvasRelativeToPictureSpace.y,
+    start: canvasRelativeToPictureSpace.x,
     top: 0,
-    width: canvasPositionInPictureSpace.width
+    width: canvasRelativeToPictureSpace.width
   }
 
   return (

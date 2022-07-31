@@ -1,6 +1,6 @@
 import { RefObject, useRef } from 'react'
 import { View } from 'react-native'
-import { gestureCanvasStore } from '../../gesturecanvasstore'
+import { positions } from '../mst/Positions'
 
 export interface IUseMeasureInWindowReturnType {
   onLayout: () => void
@@ -14,19 +14,17 @@ export const useMeasureInWindow = (objectName: TObjectName): IUseMeasureInWindow
 
   const onLayout = (): void => {
     ref.current?.measureInWindow((x: number, y: number, width: number, height: number) => {
-      let method
+      const position = { x, y, width, height }
 
       switch (objectName) {
         case 'canvas':
-          method = gestureCanvasStore.setCanvasPositionInWindow
+          positions.canvasRelativeToWindow.set(height, width, x, y)
           break
 
         case 'picturespace':
-          method = gestureCanvasStore.setPictureSpacePositionInWindow
+          positions.pictureSpaceRelativeToWindow.set(height, width, x, y)
           break
       }
-
-      method({ x, y, width, height })
     })
   }
 
