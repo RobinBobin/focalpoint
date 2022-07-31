@@ -5,16 +5,23 @@ import { BottomBar } from './bottombar'
 import { EndBar } from './endbar'
 import { StartBar } from './startbar'
 import { TopBar } from './topbar'
-import { Picture } from '../lib/pictureelements/picture'
 import { Canvas } from '../lib/pictureelements/canvas'
+import { Picture } from '../lib/pictureelements/picture'
 
 const App: React.VFC = () => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Picture>
-          <Canvas style={styles.canvas} />
-        </Picture>
+        <Picture
+          canvas={<Canvas style={styles.canvas} />}
+          style={{
+            flex: 0,
+            height: 500,
+            start: 100,
+            top: 200,
+            width: 800
+          }}
+        />
         <TopBar />
         <BottomBar />
         <StartBar />

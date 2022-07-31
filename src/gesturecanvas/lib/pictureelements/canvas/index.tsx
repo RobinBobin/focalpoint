@@ -1,18 +1,12 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { StyleProp, View, ViewStyle } from 'react-native'
-import { canvasStore } from '../../canvasstore'
+import { useMeasureInWindow } from '../hooks/useMeasureInWindow'
 
 export interface ICanvasProps {
   style: StyleProp<ViewStyle>
 }
 export const Canvas: React.FC<ICanvasProps> = ({ style }) => {
-  const ref = useRef<View>(null)
-
-  const onLayout = (): void => {
-    ref.current?.measureInWindow((x: number, y: number, width: number, height: number) => {
-      canvasStore.setPositionInWindow({ x, y, width, height })
-    })
-  }
+  const { onLayout, ref } = useMeasureInWindow('canvas')
 
   return (
     <View onLayout={onLayout} ref={ref} style={style}>
@@ -21,7 +15,7 @@ export const Canvas: React.FC<ICanvasProps> = ({ style }) => {
         height: 100,
         position: 'absolute',
         start: -50,
-        top: 0,
+        top: -20,
         width: 100
       }} />
       <View style={{
