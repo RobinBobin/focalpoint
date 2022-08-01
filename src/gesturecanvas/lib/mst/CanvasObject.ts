@@ -4,8 +4,8 @@ import { IPosition, Position } from './Position'
 export const CanvasObject = Position.named('CanvasObject')
 .props({
   id: types.identifier,
-  offsetX: types.optional(types.number, 0),
-  offsetY: types.optional(types.number, 0)
+  offsetX: 0,
+  offsetY: 0
 })
 .actions(self => {
   const setOffsetX = (offsetX: number): void => {

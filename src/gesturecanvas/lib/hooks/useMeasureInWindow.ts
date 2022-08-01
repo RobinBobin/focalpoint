@@ -2,21 +2,21 @@ import { RefObject, useRef } from 'react'
 import { View } from 'react-native'
 import { positions } from '../mst/Positions'
 
-export interface IUseMeasureInWindowReturnType {
+interface IUseMeasureInWindowReturnType {
   onLayout: () => void
   ref: RefObject<View>
 }
 
-export type TObjectName = 'canvas' | 'picturespace'
+export type TPictureElementName = 'canvas' | 'picturespace'
 
-export const useMeasureInWindow = (objectName: TObjectName): IUseMeasureInWindowReturnType => {
+export const useMeasureInWindow = (pictureElementName: TPictureElementName): IUseMeasureInWindowReturnType => {
   const ref = useRef<View>(null)
 
   const onLayout = (): void => {
     ref.current?.measureInWindow((x: number, y: number, width: number, height: number) => {
       const position = { x, y, width, height }
 
-      switch (objectName) {
+      switch (pictureElementName) {
         case 'canvas':
           positions.canvasRelativeToWindow.set(height, width, x, y)
           break

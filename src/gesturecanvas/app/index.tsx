@@ -1,4 +1,3 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
@@ -13,26 +12,11 @@ import { Canvas } from '../lib/pictureelements/canvas'
 import { Picture } from '../lib/pictureelements/picture'
 
 const App: React.VFC = observer(() => {
-  const frozenObjects = toJS(objects.objects)
-
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
         <Picture
-          onTap={(canvasX, canvasY) => {
-            'worklet'
-            
-            console.log('Tap absolute', canvasX, canvasY)
-
-            console.log(frozenObjects)
-
-            console.log('Is inside', frozenObjects.some(object => (
-              canvasX >= object.x
-              && canvasX < object.x + object.width
-              && canvasY >= object.y
-              && canvasY < object.y + object.height
-            )))
-          }}
+          canvasObjects={objects.objects}
           style={{
             flex: 0,
             height: 500,
@@ -40,9 +24,16 @@ const App: React.VFC = observer(() => {
             top: 200,
             width: 800
           }}
+          touchOptions={{
+            onPressIn: {
+              handler({ event }) {
+                console.log(event)
+              }
+            }
+          }}
         >
           <Canvas style={styles.canvas}>
-            {frozenObjects.map((object, index) => (
+            {objects.objects.map((object, index) => (
               <CanvasObject key={index} object={object} />
             ))}
           </Canvas>
