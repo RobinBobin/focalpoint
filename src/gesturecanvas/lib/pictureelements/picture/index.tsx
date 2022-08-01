@@ -24,10 +24,10 @@ const PictureRaw = <TCanvasObject extends ICanvasObject> ({
   canvasOuterSpaceOverlayOpacity,
   children,
   style,
-  touchOptions = {}
+  touchOptions
 }: React.PropsWithChildren<IPictureProps<TCanvasObject>>): JSX.Element => {
   const { backgroundColor, resultingStyle } = useBackgroundColor(styles.rootContainer, style)
-  const gesture = useGesture(touchOptions)
+  const gesture = useGesture(canvasObjects, touchOptions)
   const { onLayout, ref } = useMeasureInWindow('picturespace')
 
   return (

@@ -1,15 +1,15 @@
-import { GestureTouchEvent } from 'react-native-gesture-handler'
+import { TouchData } from 'react-native-gesture-handler'
 import { TPictureElementName } from '../../../hooks/useMeasureInWindow'
 import { ICanvasObject } from '../../../mst/CanvasObject'
 
-type TPictureElement<TCanvasObject extends ICanvasObject> = TCanvasObject | TPictureElementName
+export type TPictureElement<TCanvasObject extends ICanvasObject> = TCanvasObject | TPictureElementName
 
-interface IBaseTouchHandlerParams<TCanvasObject extends ICanvasObject> {
-  event: GestureTouchEvent
+export interface IBaseTouchHandlerParams<TCanvasObject extends ICanvasObject> {
+  id: TouchData['id']
   pictureElement: TPictureElement<TCanvasObject>
 }
 
-interface IBaseTouchHandlerOptions<
+export interface IBaseTouchHandlerOptions<
   TCanvasObject extends ICanvasObject,
   TTouchHandlerParams extends IBaseTouchHandlerParams<TCanvasObject>
 > {
