@@ -1,7 +1,7 @@
 import { toJS } from 'mobx'
 import { ComposedGesture, Gesture, GestureType } from 'react-native-gesture-handler'
-import { getPictureElement } from './getPictureElement'
 import { invokeHandler } from './invokeHandler'
+import { mapTouches } from './mapTouches'
 import { ITouchOptions } from './types'
 import { ICanvasObject } from '../../../mst/CanvasObject'
 import { positions } from '../../../mst/Positions'
@@ -14,21 +14,14 @@ export const useGesture = <TCanvasObject extends ICanvasObject> (
 ): ComposedGesture | GestureType => {
   const frozenCanvasObjects = toJS(canvasObjects)
   const frozenCanvasPosition = toJS(positions.canvasRelativeToWindow)
-  const frozenPictureSpacePosition = toJS(positions.pictureSpaceRelativeToWindow)
 
   return Gesture.Pan()
     .onTouchesCancelled(event => console.log('cancelled', event.changedTouches.map(t => t.id)))
     .onTouchesDown(event => {
-      event.changedTouches.forEach(changedTouch => {
-        const pictureElement = getPictureElement(
-          changedTouch.absoluteX,
-          changedTouch.absoluteY,
-          frozenCanvasObjects,
-          frozenCanvasPosition
-        )
+      const allTouches = mapTouches<TCanvasObject>(frozenCanvasObjects, frozenCanvasPosition, event.allTouches)
+      const changedTouches = mapTouches<TCanvasObject>(frozenCanvasObjects, frozenCanvasPosition, event.changedTouches)
 
-        invokeHandler(onPressIn, { id: changedTouch.id, pictureElement })
-      })
+      invokeHandler(onPressIn, { allTouches, changedTouches })
 
       // switch (event.allTouches.length) {
       //   case 1:

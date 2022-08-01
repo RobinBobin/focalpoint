@@ -4,9 +4,14 @@ import { ICanvasObject } from '../../../mst/CanvasObject'
 
 export type TPictureElement<TCanvasObject extends ICanvasObject> = TCanvasObject | TPictureElementName
 
-export interface IBaseTouchHandlerParams<TCanvasObject extends ICanvasObject> {
-  id: TouchData['id']
+export interface ITouchData<
+  TCanvasObject extends ICanvasObject
+> extends Pick<TouchData, 'id' | 'absoluteX' | 'absoluteY'> {
   pictureElement: TPictureElement<TCanvasObject>
+}
+export interface IBaseTouchHandlerParams<TCanvasObject extends ICanvasObject> {
+  allTouches: ITouchData<TCanvasObject>[]
+  changedTouches: ITouchData<TCanvasObject>[]
 }
 
 export interface IBaseTouchHandlerOptions<

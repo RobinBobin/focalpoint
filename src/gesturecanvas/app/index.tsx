@@ -26,8 +26,8 @@ const App: React.VFC = observer(() => {
           }}
           touchOptions={{
             onPressIn: {
-              handler({ pictureElement }) {
-                console.log('onPressIn', pictureElement)
+              handler({ changedTouches }) {
+                console.log('onPressIn', changedTouches)
               }
             }
           }}
