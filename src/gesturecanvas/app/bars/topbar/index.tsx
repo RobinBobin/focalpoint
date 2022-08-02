@@ -1,17 +1,19 @@
 import React from 'react'
 import { Text, TouchableOpacity } from 'react-native'
 import styles from './styles'
-import { objects } from '../../mst/objects'
+import { CanvasObject } from '../../mst/CanvasObject'
+import { objects } from '../../mst/CanvasObjects'
 
 export const TopBar: React.VFC = () => {
   const onPress = (): void => {
-    objects.push({
+    objects.push(CanvasObject.create({
+      field2: 'mandatory',
       height: 100,
       id: `id_${Date.now()}`,
       width: 100,
       x: -20,
       y: -20
-    })
+    }))
   }
 
   return (

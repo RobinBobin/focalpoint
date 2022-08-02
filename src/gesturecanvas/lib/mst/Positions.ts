@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { Instance, types } from 'mobx-state-tree'
 import { IPosition, Position } from './Position'
 
 const Positions = types.model('Positions', {
@@ -19,3 +19,5 @@ export const positions = Positions.create({
   canvasRelativeToWindow: Position.create(),
   pictureSpaceRelativeToWindow: Position.create()
 })
+
+export type TPositions = Instance<typeof Positions>

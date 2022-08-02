@@ -39,4 +39,4 @@ export const Position = types.model('Position', {
   }
 })
 
-export interface IPosition extends Instance<typeof Position> {}
+export type TPosition = Instance<typeof Position>

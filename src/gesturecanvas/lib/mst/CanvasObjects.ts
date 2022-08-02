@@ -1,11 +1,11 @@
 import { Instance, types } from 'mobx-state-tree'
-import { CanvasObject, TNewCanvasObject } from './CanvasObject'
+import { CanvasObject, TCanvasObject } from './CanvasObject'
 
 export const CanvasObjects = types.model('CanvasObjects', {
   objects: types.array(CanvasObject)
 })
 .actions(self => {
-  const push = (object: TNewCanvasObject): void => {
+  const push = (object: TCanvasObject): void => {
     self.objects.push(object)
   }
 
@@ -27,4 +27,4 @@ export const CanvasObjects = types.model('CanvasObjects', {
   }
 })
 
-export interface ICanvasObjects extends Instance<typeof CanvasObjects> {}
+export type TCanvasObjects = Instance<typeof CanvasObjects>

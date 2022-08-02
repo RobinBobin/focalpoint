@@ -1,5 +1,5 @@
 import { Instance, types } from 'mobx-state-tree'
-import { IPosition, Position } from './Position'
+import { Position } from './Position'
 
 export const CanvasObject = Position.named('CanvasObject')
 .props({
@@ -22,8 +22,4 @@ export const CanvasObject = Position.named('CanvasObject')
   }
 })
 
-export interface ICanvasObject extends Instance<typeof CanvasObject> {}
-
-export type TNewCanvasObject =
-  Pick<IPosition, 'height' | 'width' | 'x' | 'y'>
-  & Pick<ICanvasObject, 'id'>
+export type TCanvasObject = Instance<typeof CanvasObject>
