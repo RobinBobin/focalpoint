@@ -1,9 +1,9 @@
 import React from 'react'
 import { View } from 'react-native'
-import { ICanvasObject } from '../../lib/mst/CanvasObject'
+import { TCanvasObject } from '../mst/CanvasObject'
 
 interface ICanvasObjectProps {
-  object: ICanvasObject
+  object: TCanvasObject
 }
 
 export const CanvasObject: React.VFC<ICanvasObjectProps> = ({ object }) => {

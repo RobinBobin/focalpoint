@@ -2,38 +2,38 @@ import { GestureTouchEvent } from 'react-native-gesture-handler'
 import { runOnJS } from 'react-native-reanimated'
 import { mapTouches } from './mapTouches'
 import { ICommonTouchHandlerOptions, ICommonTouchHandlerParams } from './types'
-import { ICanvasObject } from '../../../mst/CanvasObject'
-import { IPosition } from '../../../mst/Position'
+import { TCanvasObject as TCanvasObjectBase } from '../../../mst/CanvasObject'
+import { TPosition } from '../../../mst/Position'
 
 // https://stackoverflow.com/questions/52318011/optional-parameters-based-on-conditional-types
 
 export function invokeHandler<
-  TCanvasObject extends ICanvasObject
+  TCanvasObject extends TCanvasObjectBase
 >(
   event: GestureTouchEvent,
   frozenCanvasObjects: TCanvasObject[],
-  frozenCanvasPosition: IPosition,
+  frozenCanvasPosition: TPosition,
   options: ICommonTouchHandlerOptions<TCanvasObject> | undefined
 ): void
 
 export function invokeHandler<
-  TCanvasObject extends ICanvasObject,
+  TCanvasObject extends TCanvasObjectBase,
   TCustomTouchHandlerParams
 >(
   event: GestureTouchEvent,
   frozenCanvasObjects: TCanvasObject[],
-  frozenCanvasPosition: IPosition,
+  frozenCanvasPosition: TPosition,
   options: ICommonTouchHandlerOptions<TCanvasObject, TCustomTouchHandlerParams> | undefined,
   paramsGetter: () => TCustomTouchHandlerParams
 ): void
 
 export function invokeHandler<
-  TCanvasObject extends ICanvasObject,
+  TCanvasObject extends TCanvasObjectBase,
   TCustomTouchHandlerParams
 >(
   event: GestureTouchEvent,
   frozenCanvasObjects: TCanvasObject[],
-  frozenCanvasPosition: IPosition,
+  frozenCanvasPosition: TPosition,
   options: ICommonTouchHandlerOptions<TCanvasObject, TCustomTouchHandlerParams> | undefined,
   paramsGetter?: () => TCustomTouchHandlerParams
 ): void {

@@ -2,10 +2,10 @@ import { toJS } from 'mobx'
 import { ComposedGesture, Gesture, GestureType } from 'react-native-gesture-handler'
 import { invokeHandler } from './invokeHandler'
 import { ITouchOptions } from './types'
-import { ICanvasObject } from '../../../mst/CanvasObject'
+import { TCanvasObject as TCanvasObjectBase } from '../../../mst/CanvasObject'
 import { positions } from '../../../mst/Positions'
 
-export const useGesture = <TCanvasObject extends ICanvasObject> (
+export const useGesture = <TCanvasObject extends TCanvasObjectBase> (
   canvasObjects: TCanvasObject[],
   {
     onPressIn,

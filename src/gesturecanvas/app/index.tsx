@@ -6,6 +6,7 @@ import { BottomBar } from './bars/bottombar'
 import { EndBar } from './bars/endbar'
 import { StartBar } from './bars/startbar'
 import { TopBar } from './bars/topbar'
+import { TCanvasObject } from './mst/CanvasObject'
 import { objects } from './mst/CanvasObjects'
 import styles from './styles'
 import { Canvas } from '../lib/pictureelements/canvas'
@@ -38,7 +39,7 @@ const App: React.VFC = observer(() => {
           }}
         >
           <Canvas style={styles.canvas}>
-            {objects.objects.map((object, index) => (
+            {objects.objects.map((object: TCanvasObject, index) => (
               <CanvasObject key={index} object={object} />
             ))}
           </Canvas>

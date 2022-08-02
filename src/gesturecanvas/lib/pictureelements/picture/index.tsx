@@ -10,16 +10,16 @@ import { ITouchOptions } from './touchhandling/types'
 import { useGesture } from './touchhandling/useGesture'
 import { PictureSpace } from '../picturespace'
 import { useMeasureInWindow } from '../../hooks/useMeasureInWindow'
-import { ICanvasObject } from '../../mst/CanvasObject'
+import { TCanvasObject as TCanvasObjectBase } from '../../mst/CanvasObject'
 
-export interface IPictureProps<TCanvasObject extends ICanvasObject> {
+export interface IPictureProps<TCanvasObject extends TCanvasObjectBase> {
   canvasObjects: TCanvasObject[]
   canvasOuterSpaceOverlayOpacity?: number
   style?: StyleProp<ViewStyle>
   touchOptions: ITouchOptions<TCanvasObject>
 }
 
-const PictureRaw = <TCanvasObject extends ICanvasObject> ({
+const PictureRaw = <TCanvasObject extends TCanvasObjectBase> ({
   canvasObjects,
   canvasOuterSpaceOverlayOpacity,
   children,

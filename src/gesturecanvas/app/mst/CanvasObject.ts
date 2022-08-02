@@ -6,4 +6,4 @@ export const CanvasObject = CanvasObjectBase.props({
   field2: types.string
 })
 
-export interface ICanvasObject extends Instance<typeof CanvasObject> {}
+export type TCanvasObject = Instance<typeof CanvasObject>

@@ -1,9 +1,9 @@
 import { TouchData } from 'react-native-gesture-handler'
 import { ITouchData, TPictureElement } from './types'
-import { ICanvasObject } from '../../../mst/CanvasObject'
-import { IPosition } from '../../../mst/Position'
+import { TCanvasObject as TCanvasObjectBase } from '../../../mst/CanvasObject'
+import { TPosition } from '../../../mst/Position'
 
-const isInside = (x: number, y: number, position: IPosition): boolean => {
+const isInside = (x: number, y: number, position: TPosition): boolean => {
   'worklet'
 
   return (
@@ -12,9 +12,9 @@ const isInside = (x: number, y: number, position: IPosition): boolean => {
   )
 }
 
-export const mapTouches = <TCanvasObject extends ICanvasObject> (
+export const mapTouches = <TCanvasObject extends TCanvasObjectBase> (
   frozenCanvasObjects: TCanvasObject[],
-  frozenCanvasPosition: IPosition,
+  frozenCanvasPosition: TPosition,
   sortCanvasObjectsByOrderDesc: boolean,
   touches: TouchData[]
 ): ITouchData<TCanvasObject>[] => {
