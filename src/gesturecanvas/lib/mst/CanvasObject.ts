@@ -24,6 +24,6 @@ export const CanvasObject = Position.named('CanvasObject')
 
 export interface ICanvasObject extends Instance<typeof CanvasObject> {}
 
-export interface INewCanvasObject extends Pick<IPosition, 'height' | 'width' | 'x' | 'y'> {
-  id: string
-}
+export type TNewCanvasObject =
+  Pick<IPosition, 'height' | 'width' | 'x' | 'y'>
+  & Pick<ICanvasObject, 'id'>

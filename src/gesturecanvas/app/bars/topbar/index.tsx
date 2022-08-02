@@ -5,7 +5,7 @@ import { objects } from '../../mst/objects'
 
 export const TopBar: React.VFC = () => {
   const onPress = (): void => {
-    objects.add({
+    objects.push({
       height: 100,
       id: `id_${Date.now()}`,
       width: 100,

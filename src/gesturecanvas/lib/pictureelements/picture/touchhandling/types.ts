@@ -2,28 +2,26 @@ import { TouchData } from 'react-native-gesture-handler'
 import { TPictureElementName } from '../../../hooks/useMeasureInWindow'
 import { ICanvasObject } from '../../../mst/CanvasObject'
 
-export type TPictureElement<TCanvasObject extends ICanvasObject> = TCanvasObject | TPictureElementName
+export type TPictureElement<TCanvasObject extends ICanvasObject> = TCanvasObject[] | TPictureElementName
 
-export interface ITouchData<
-  TCanvasObject extends ICanvasObject
-> extends Pick<TouchData, 'id' | 'absoluteX' | 'absoluteY'> {
+export interface ITouchData<TCanvasObject extends ICanvasObject> extends Pick<TouchData, 'id' | 'absoluteX' | 'absoluteY'> {
   pictureElement: TPictureElement<TCanvasObject>
 }
-export interface IBaseTouchHandlerParams<TCanvasObject extends ICanvasObject> {
+export interface ICommonTouchHandlerParams<TCanvasObject extends ICanvasObject> {
   allTouches: ITouchData<TCanvasObject>[]
   changedTouches: ITouchData<TCanvasObject>[]
 }
 
-export interface IBaseTouchHandlerOptions<
+export interface ICommonTouchHandlerOptions<
   TCanvasObject extends ICanvasObject,
-  TTouchHandlerParams extends IBaseTouchHandlerParams<TCanvasObject>
+  TCustomTouchHandlerParams = {}
 > {
-  handler: (params: TTouchHandlerParams) => void
+  handler: (params: ICommonTouchHandlerParams<TCanvasObject> & TCustomTouchHandlerParams) => void
   shouldRunOnJS?: boolean
+  sortCanvasObjectsByOrderDesc?: boolean
 }
 
-export type TOnPressInOptions<TCanvasObject extends ICanvasObject> = IBaseTouchHandlerOptions<TCanvasObject, IBaseTouchHandlerParams<TCanvasObject>>
-
 export interface ITouchOptions<TCanvasObject extends ICanvasObject> {
-  onPressIn?: TOnPressInOptions<TCanvasObject>
+  onPressIn?: ICommonTouchHandlerOptions<TCanvasObject>
+  onPressOut?: ICommonTouchHandlerOptions<TCanvasObject>
 }

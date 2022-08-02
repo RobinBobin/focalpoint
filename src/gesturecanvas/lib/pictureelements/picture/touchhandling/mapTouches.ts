@@ -15,6 +15,7 @@ const isInside = (x: number, y: number, position: IPosition): boolean => {
 export const mapTouches = <TCanvasObject extends ICanvasObject> (
   frozenCanvasObjects: TCanvasObject[],
   frozenCanvasPosition: IPosition,
+  sortCanvasObjectsByOrderDesc: boolean,
   touches: TouchData[]
 ): ITouchData<TCanvasObject>[] => {
   'worklet'
@@ -22,7 +23,15 @@ export const mapTouches = <TCanvasObject extends ICanvasObject> (
   return touches.map(touch => {
     let pictureElement: TPictureElement<TCanvasObject> = 'picturespace'
 
-    if (isInside(touch.absoluteX, touch.absoluteY, frozenCanvasPosition)) {
+    const touchedCanvasObjects = frozenCanvasObjects.filter(frozenCanvasObject => isInside(
+      touch.absoluteX - frozenCanvasPosition.x,
+      touch.absoluteY - frozenCanvasPosition.y,
+      frozenCanvasObject
+    ))
+
+    if (touchedCanvasObjects.length) {
+      pictureElement = touchedCanvasObjects
+    } else if (isInside(touch.absoluteX, touch.absoluteY, frozenCanvasPosition)) {
       pictureElement = 'canvas'
     }
 

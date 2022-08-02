@@ -29,6 +29,11 @@ const App: React.VFC = observer(() => {
               handler({ changedTouches }) {
                 console.log('onPressIn', changedTouches)
               }
+            },
+            onPressOut: {
+              handler({ changedTouches }) {
+                console.log('onPressOut', changedTouches)
+              }
             }
           }}
         >
