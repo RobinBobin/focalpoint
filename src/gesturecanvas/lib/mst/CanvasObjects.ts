@@ -5,12 +5,16 @@ export const CanvasObjects = types.model('CanvasObjects', {
   objects: types.array(CanvasObject)
 })
 .actions(self => {
+  const findIndex = (id: string): number => {
+    return self.objects.findIndex(object => object.id === id)
+  }
+
   const push = (object: TCanvasObject): void => {
     self.objects.push(object)
   }
 
   const remove = (id: string): boolean => {
-    const start = self.objects.findIndex(object => object.id === id)
+    const start = findIndex(id)
 
     if (start === -1) {
       return false
@@ -22,6 +26,7 @@ export const CanvasObjects = types.model('CanvasObjects', {
   }
 
   return {
+    findIndex,
     push,
     remove
   }
