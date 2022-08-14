@@ -6,7 +6,7 @@ import { GestureDetector, GestureHandlerRootView } from 'react-native-gesture-ha
 import { CanvasOuterSpaceOverlay } from './CanvasOuterSpaceOverlay'
 import { useBackgroundColor } from './useBackgroundColor'
 import styles from './styles'
-import { ITouchOptions } from './touchhandling/types'
+import { ITouchOptions } from './touchhandling/types/touchOptions'
 import { useGesture } from './touchhandling/useGesture'
 import { PictureSpace } from '../picturespace'
 import { useMeasureInWindow } from '../../hooks/useMeasureInWindow'

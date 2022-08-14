@@ -1,11 +1,33 @@
 import { GestureTouchEvent } from 'react-native-gesture-handler'
 import { runOnJS } from 'react-native-reanimated'
 import { mapTouches } from './mapTouches'
-import { ICommonTouchHandlerOptions, ICommonTouchHandlerParams } from './types'
+import {
+  TOnPressInOptions,
+  TOnPressOutOptions,
+  TTouchHandler
+} from './types/handlerOptions'
+import { TCommonTouchHandlerParams, TOnPressOutParamsExtra } from './types/handlerParams'
 import { TCanvasObject as TCanvasObjectBase } from '../../../mst/CanvasObject'
 import { TPosition } from '../../../mst/Position'
 
-// https://stackoverflow.com/questions/52318011/optional-parameters-based-on-conditional-types
+type TTouchHandlerOptions<TCanvasObject extends TCanvasObjectBase> =
+  TOnPressInOptions<TCanvasObject> |
+  TOnPressOutOptions<TCanvasObject>
+
+export function invokeHandler<TCanvasObject extends TCanvasObjectBase>(
+  event: GestureTouchEvent,
+  frozenCanvasObjects: TCanvasObject[],
+  frozenCanvasPosition: TPosition,
+  options: TOnPressInOptions<TCanvasObject> | undefined
+): void
+
+export function invokeHandler<TCanvasObject extends TCanvasObjectBase>(
+  event: GestureTouchEvent,
+  frozenCanvasObjects: TCanvasObject[],
+  frozenCanvasPosition: TPosition,
+  options: TOnPressOutOptions<TCanvasObject> | undefined,
+  extraParametersGetter: () => TOnPressOutParamsExtra
+): void
 
 export function invokeHandler<
   TCanvasObject extends TCanvasObjectBase
@@ -13,56 +35,27 @@ export function invokeHandler<
   event: GestureTouchEvent,
   frozenCanvasObjects: TCanvasObject[],
   frozenCanvasPosition: TPosition,
-  options: ICommonTouchHandlerOptions<TCanvasObject> | undefined
-): void
-
-export function invokeHandler<
-  TCanvasObject extends TCanvasObjectBase,
-  TCustomTouchHandlerParams
->(
-  event: GestureTouchEvent,
-  frozenCanvasObjects: TCanvasObject[],
-  frozenCanvasPosition: TPosition,
-  options: ICommonTouchHandlerOptions<TCanvasObject, TCustomTouchHandlerParams> | undefined,
-  paramsGetter: () => TCustomTouchHandlerParams
-): void
-
-export function invokeHandler<
-  TCanvasObject extends TCanvasObjectBase,
-  TCustomTouchHandlerParams
->(
-  event: GestureTouchEvent,
-  frozenCanvasObjects: TCanvasObject[],
-  frozenCanvasPosition: TPosition,
-  options: ICommonTouchHandlerOptions<TCanvasObject, TCustomTouchHandlerParams> | undefined,
-  paramsGetter?: () => TCustomTouchHandlerParams
+  options: TTouchHandlerOptions<TCanvasObject> | undefined,
+  extraParametersGetter?: () => {}
 ): void {
   'worklet'
 
-  const handler = options?.handler
-
-  if (!handler) {
+  if (!options) {
     return
   }
 
-  const sortCanvasObjectsByOrderDesc = options.sortCanvasObjectsByOrderDesc ?? true
+  const handler = options.handler as TTouchHandler<TCanvasObject, TCommonTouchHandlerParams<TCanvasObject>>
 
-  const allTouches = mapTouches<TCanvasObject>(
-    frozenCanvasObjects,
-    frozenCanvasPosition,
-    sortCanvasObjectsByOrderDesc,
-    event.allTouches
+  const [allTouches, changedTouches] = [event.allTouches, event.changedTouches].map(touches => mapTouches<TCanvasObject>(
+      frozenCanvasObjects,
+      frozenCanvasPosition,
+      options.sortCanvasObjectsByOrderDesc ?? true,
+      touches
+    )
   )
 
-  const changedTouches = mapTouches<TCanvasObject>(
-    frozenCanvasObjects,
-    frozenCanvasPosition,
-    sortCanvasObjectsByOrderDesc,
-    event.changedTouches
-  )
-
-  // FIXME: remove as
-  const params = { ...paramsGetter?.(), allTouches, changedTouches } as ICommonTouchHandlerParams<TCanvasObject> & TCustomTouchHandlerParams
+  const commonParams = { allTouches, changedTouches }
+  const params = { ...commonParams, ...extraParametersGetter?.() }
 
   options.shouldRunOnJS ?? true ? runOnJS(handler)(params) : handler(params)
 }

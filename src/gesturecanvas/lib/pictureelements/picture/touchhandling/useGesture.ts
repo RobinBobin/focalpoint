@@ -1,7 +1,7 @@
 import { toJS } from 'mobx'
 import { ComposedGesture, Gesture, GestureType } from 'react-native-gesture-handler'
 import { invokeHandler } from './invokeHandler'
-import { ITouchOptions } from './types'
+import { ITouchOptions } from './types/touchOptions'
 import { TCanvasObject as TCanvasObjectBase } from '../../../mst/CanvasObject'
 import { positions } from '../../../mst/Positions'
 
@@ -50,7 +50,7 @@ export const useGesture = <TCanvasObject extends TCanvasObjectBase> (
     //   }
     // })
     .onTouchesUp(event  => {
-      invokeHandler(event, frozenCanvasObjects, frozenCanvasPosition, onPressOut)
+      invokeHandler(event, frozenCanvasObjects, frozenCanvasPosition, onPressOut, () => ({ magicField: '10' }))
     //   switch (event.allTouches.length) {
     //     case 1:
     //       console.log('zero')

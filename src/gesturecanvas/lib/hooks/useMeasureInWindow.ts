@@ -14,8 +14,6 @@ export const useMeasureInWindow = (pictureElementName: TPictureElementName): IUs
 
   const onLayout = (): void => {
     ref.current?.measureInWindow((x: number, y: number, width: number, height: number) => {
-      const position = { x, y, width, height }
-
       switch (pictureElementName) {
         case 'canvas':
           positions.canvasRelativeToWindow.set(height, width, x, y)

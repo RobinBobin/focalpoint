@@ -17,7 +17,7 @@ const App: React.VFC = observer(() => {
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
         <Picture
-          canvasObjects={objects.objects}
+          canvasObjects={objects.objects as TCanvasObject[]}
           style={{
             flex: 0,
             height: 500,
